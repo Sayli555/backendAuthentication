@@ -25,7 +25,6 @@ const signup = async (req, res) => {
       ...req.body,
       password: hashedPassword,
     });
-    console.log("reqbody", user);
 
     return res.status(201).json({
       message: "User registered successfully",
@@ -88,7 +87,6 @@ const login = async (req, res) => {
 const refreshTokenController = async (req, res) => {
   try {
     const token = req.cookies.refresh_token;
-    console.log("tokenOfCookies", token);
 
     if (!token) {
       return res.status(401).json({ message: "Refresh token missing" });
@@ -121,8 +119,7 @@ const refreshTokenController = async (req, res) => {
 const logout = async (req, res) => {
   try {
     res.clearCookie("access_token", { path: "/" });
-    res.clearCookie("refresh_token", { path: "/api/auth/refresh" });
-
+    res.clearCookie("refresh_token", { path: "/" });
     return res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     console.error("ERROR 👉", error);
