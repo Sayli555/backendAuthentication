@@ -1,4 +1,4 @@
-const { verifyAccessToken } = require("../helper/haspassword.helper");
+const { verifyAccessToken } = require("../helper/hashpassword.helper");
 
 exports.auth = (req, res, next) => {
   try {
