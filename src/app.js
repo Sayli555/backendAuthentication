@@ -1,6 +1,36 @@
-const express=require("express")
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const helmet = require("helmet");
+require("dotenv").config();
 
+const app = express();
 
-const app=express()
+app.use(helmet());
 
-module.exports=app
+// app.use(
+//   cors({
+//     origin: process.env.UI_URL,
+//     credentials: true,
+//   })
+// );
+
+app.use(express.json());
+app.use(cookieParser());
+
+const authRoutes = require("./routes/auth.route");
+
+app.use("/api/auth", authRoutes);
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "OK" });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({
+    message: "Internal server error",
+  });
+});
+
+module.exports = app;
