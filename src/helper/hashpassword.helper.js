@@ -25,7 +25,6 @@ exports.generateAccessToken = (id, email) => {
       expiresIn: "15m",
     });
   } catch (error) {
-    console.error("ERROR 👉", error);
     return res.status(500).json({
       message: "Server error",
       error: error.message,
@@ -39,7 +38,6 @@ exports.generateRefreshToken = (id, email) => {
       expiresIn: "7d",
     });
   } catch (error) {
-    console.error("ERROR 👉", error);
     return res.status(500).json({
       message: "Server error",
       error: error.message,

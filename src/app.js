@@ -8,19 +8,21 @@ const app = express();
 
 app.use(helmet());
 
-// app.use(
-//   cors({
-//     origin: process.env.UI_URL,
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: process.env.UI_URL,
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
 
 const authRoutes = require("./routes/auth.route");
+const dashbaordRoutes = require("./routes/dashboard.route");
 
 app.use("/api/auth", authRoutes);
+app.use("/api", dashbaordRoutes);
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });

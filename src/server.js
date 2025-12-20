@@ -8,7 +8,6 @@ app.listen(PORT, async () => {
     await connectDb();
     console.log(`SERVER RUNNING ON PORT ${PORT}`);
   } catch (error) {
-    console.error("ERROR 👉", error);
     return res.status(500).json({
       message: "Server error",
       error: error.message,

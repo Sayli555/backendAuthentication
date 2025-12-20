@@ -7,12 +7,12 @@ const registerValidationRules = () => [
     .trim()
     .escape(),
 
-  body("email")
-    .isEmail()
-    .withMessage("Must be a valid email")
-    .normalizeEmail(),
+  body("email").isEmail().withMessage("Must be a valid email").normalizeEmail(),
 
   body("password")
+    .isString()
+    .withMessage("Password must be a string")
+    .bail()
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 characters long")
     .matches(/[a-z]/)
@@ -26,14 +26,9 @@ const registerValidationRules = () => [
 ];
 
 const loginValidationRules = () => [
-  body("email")
-    .isEmail()
-    .withMessage("Must be a valid email")
-    .normalizeEmail(),
+  body("email").isEmail().withMessage("Must be a valid email").normalizeEmail(),
 
-  body("password")
-    .exists()
-    .withMessage("Password is required"),
+  body("password").notEmpty().withMessage("Password is required"),
 ];
 
 const validate = (req, res, next) => {
@@ -42,7 +37,7 @@ const validate = (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(422).json({
       message: "Validation failed",
-      errors: errors.array().map(err => ({
+      errors: errors.array().map((err) => ({
         field: err.param,
         message: err.msg,
       })),

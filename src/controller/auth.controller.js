@@ -31,7 +31,6 @@ const signup = async (req, res) => {
       userId: user._id,
     });
   } catch (error) {
-    console.error("ERROR 👉", error);
     return res.status(500).json({
       message: "Server error",
       error: error.message,
@@ -58,7 +57,7 @@ const login = async (req, res) => {
 
     res.cookie("refresh_token", refresh_token, {
       httpOnly: true,
-      secure: false, // ✅ localhost
+      secure: false, 
       sameSite: "lax",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -66,7 +65,7 @@ const login = async (req, res) => {
 
     res.cookie("access_token", access_Token, {
       httpOnly: true,
-      secure: false, // ✅ localhost
+      secure: false, 
       sameSite: "lax",
       path: "/",
       maxAge: 15 * 60 * 1000,
@@ -76,7 +75,6 @@ const login = async (req, res) => {
       message: "Login successful",
     });
   } catch (error) {
-    console.error("ERROR 👉", error);
     return res.status(500).json({
       message: "Server error",
       error: error.message,
@@ -108,7 +106,6 @@ const refreshTokenController = async (req, res) => {
 
     return res.status(200).json({ message: "Token refreshed" });
   } catch (error) {
-    console.error("ERROR 👉", error);
     return res.status(500).json({
       message: "Server error",
       error: error.message,
@@ -122,7 +119,6 @@ const logout = async (req, res) => {
     res.clearCookie("refresh_token", { path: "/" });
     return res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    console.error("ERROR 👉", error);
     return res.status(500).json({
       message: "Server error",
       error: error.message,

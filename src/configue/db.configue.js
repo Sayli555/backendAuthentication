@@ -7,7 +7,6 @@ const connectDb = async () => {
     await mongoose.connect(MONGODB_URL);
     console.log("DB connect");
   } catch (error) {
-    console.error("ERROR 👉", error);
     return res.status(500).json({
       message: "Server error",
       error: error.message, 

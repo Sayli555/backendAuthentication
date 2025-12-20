@@ -19,4 +19,5 @@ router.post("/login", loginValidationRules(), validate, login);
 router.get("/refresh-token", refreshTokenController);
 router.get("/logout", logout);
 
+
 module.exports = router;
