@@ -10,7 +10,7 @@ app.use(helmet());
 
 app.use(
   cors({
-    origin: process.env.UI_URL,
+    origin: [process.env.UI_URL, process.env.LOCAL_URL],
     credentials: true,
   })
 );
